@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quran Page Explorer (604 Pages)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e8f0ea, #faf8f4);
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-family: 'Amiri', serif;
+      color: #064420;
+      margin-bottom: 15px;
+    }
+    input {
+      padding: 10px;
+      width: 250px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 15px;
+      justify-items: center;
+    }
+    .card {
+      width: 90px;
+      height: 90px;
+      border-radius: 12px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .number {
+      font-weight: bold;
+      color: #064420;
+      font-size: 18px;
+    }
+    footer {
+      margin-top: 40px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📖 Quran Page Explorer</h1>
+  <input type="number" id="search" placeholder="Go to page (1–604)" min="1" max="604" oninput="goToPage(this.value)" />
+
+  <div class="grid" id="grid"></div>
+
+  <footer>Built by <b>Victory Hour Multimedia Inc.</b> | 10% to feed the hungry 🌍</footer>
+
+  <script>
+    const grid = document.getElementById("grid");
+    for (let i = 1; i <= 604; i++) {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `<div class='number'>${i}</div>`;
+      
+      // Corrected URLs for specific pages
+      if (i === 26) {
+        card.onclick = () => window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-26/`, '_blank');
+      } else if (i === 27) {
+        card.onclick = () => window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-27/`, '_blank');
+      } else {
+        card.onclick = () => window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${i}-/`, '_blank');
+      }
+
+      grid.appendChild(card);
+    }
+
+    function goToPage(num) {
+      const n = parseInt(num);
+      if (n >= 1 && n <= 604) {
+        if (n === 26) {
+          window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-26/`, '_blank');
+        } else if (n === 27) {
+          window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-27/`, '_blank');
+        } else {
+          window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${n}-/`, '_blank');
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
