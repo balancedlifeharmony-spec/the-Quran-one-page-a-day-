@@ -71,31 +71,45 @@
 
   <script>
     const grid = document.getElementById("grid");
-    const correctedPages = [19, 20, 21, 26, 27];
+    const linkCache = {};
 
+    // Pre-check links for existing pages
+    async function checkUrl(pageNum) {
+      const base = `https://balancedlifeharmony-spec.github.io/Quran-page-${pageNum}`;
+      const urls = [`${base}-/`, `${base}/`];
+      for (const url of urls) {
+        try {
+          const res = await fetch(url, { method: "HEAD" });
+          if (res.ok) {
+            linkCache[pageNum] = url;
+            return;
+          }
+        } catch {}
+      }
+      // fallback to dashed link
+      linkCache[pageNum] = `${base}-/`;
+    }
+
+    // Load all 604 pages in background (fast HEAD requests)
+    for (let i = 1; i <= 604; i++) checkUrl(i);
+
+    // Build grid
     for (let i = 1; i <= 604; i++) {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `<div class='number'>${i}</div>`;
-
-      if (correctedPages.includes(i)) {
-        card.onclick = () => window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${i}/`, '_blank');
-      } else {
-        card.onclick = () => window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${i}-/`, '_blank');
-      }
-
+      card.onclick = () => openPage(i);
       grid.appendChild(card);
+    }
+
+    function openPage(n) {
+      const url = linkCache[n] || `https://balancedlifeharmony-spec.github.io/Quran-page-${n}-/`;
+      window.open(url, "_blank");
     }
 
     function goToPage(num) {
       const n = parseInt(num);
-      if (n >= 1 && n <= 604) {
-        if ([19, 20, 21, 26, 27].includes(n)) {
-          window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${n}/`, '_blank');
-        } else {
-          window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${n}-/`, '_blank');
-        }
-      }
+      if (n >= 1 && n <= 604) openPage(n);
     }
   </script>
 
