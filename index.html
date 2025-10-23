@@ -71,16 +71,15 @@
 
   <script>
     const grid = document.getElementById("grid");
+    const correctedPages = [19, 20, 21, 26, 27];
+
     for (let i = 1; i <= 604; i++) {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `<div class='number'>${i}</div>`;
-      
-      // Corrected URLs for specific pages
-      if (i === 26) {
-        card.onclick = () => window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-26/`, '_blank');
-      } else if (i === 27) {
-        card.onclick = () => window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-27/`, '_blank');
+
+      if (correctedPages.includes(i)) {
+        card.onclick = () => window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${i}/`, '_blank');
       } else {
         card.onclick = () => window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${i}-/`, '_blank');
       }
@@ -91,10 +90,8 @@
     function goToPage(num) {
       const n = parseInt(num);
       if (n >= 1 && n <= 604) {
-        if (n === 26) {
-          window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-26/`, '_blank');
-        } else if (n === 27) {
-          window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-27/`, '_blank');
+        if ([19, 20, 21, 26, 27].includes(n)) {
+          window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${n}/`, '_blank');
         } else {
           window.open(`https://balancedlifeharmony-spec.github.io/Quran-page-${n}-/`, '_blank');
         }
